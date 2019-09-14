@@ -10,8 +10,13 @@ const INDEX = path.join(__dirname, 'index.html');
 const app = express();
 
 app.post('/api/doorEntry', (req, res) => {
-    console.log(req.body);
-    if (req.body[0] == 1) {
+    console.log(req);
+    console.log('Connected clients:')
+    wss.clients.forEach((client) => {
+        console.log(client);
+    });
+    
+    if (req.body[0] == '1') {
         wss.clients.forEach((client) => {
             client.send('on');
         });
