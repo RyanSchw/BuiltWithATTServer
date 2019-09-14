@@ -16,7 +16,7 @@ app.post('/api/doorEntry', (req, res) => {
     console.log(req.body);
     console.log('Connected clients:')
     wss.clients.forEach((client) => {
-        console.log(client);
+        console.log(client.id);
     });
     if (req.body[req.body.length - 1] == '1') {
         wss.clients.forEach((client) => {
@@ -39,7 +39,8 @@ const server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const wss = new SocketServer({ server });
 
-wss.on('connection', (ws) => {
+wss.on('connection', (ws, req) => {
+    ws.id = req.url.replace('/?id=', '');
     console.log('Client connected');
     ws.on('close', () => console.log('Client disconnected'));
 });
