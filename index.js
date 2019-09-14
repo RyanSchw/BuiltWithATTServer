@@ -3,13 +3,14 @@
 const express = require('express');
 const SocketServer = require('ws').Server;
 const path = require('path');
+var bodyParser = require('body-parser')
 
 const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, 'index.html');
 
 const app = express();
 
-app.use(express.bodyParser());
+app.use(bodyParser.text());
 
 app.post('/api/doorEntry', (req, res) => {
     console.log(req.body);
@@ -17,8 +18,7 @@ app.post('/api/doorEntry', (req, res) => {
     wss.clients.forEach((client) => {
         console.log(client);
     });
-
-    if (req.body[0] == '1') {
+    if (req.body[req.body.length - 1] == '1') {
         wss.clients.forEach((client) => {
             client.send('on');
         });
