@@ -13,20 +13,21 @@ const app = express();
 app.use(bodyParser.text());
 
 app.post('/api/doorEntry', (req, res) => {
-    console.log(req.body);
-    console.log('Connected clients:')
-    wss.clients.forEach((client) => {
-        console.log(client.token);
-    });
     if (req.body[req.body.length - 1] == '1') {
         wss.clients.forEach((client) => {
-            client.send('on');
+            if (client.token == req.body.slice(0, -1))
+            {
+                client.send('on');
+            }
         });
     }
     else
     {
         wss.clients.forEach((client) => {
-            client.send('off');
+            if (client.token == req.body.slice(0, -1))
+            {
+                client.send('off');
+            }
         });
     }
     
