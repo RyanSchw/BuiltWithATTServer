@@ -46,7 +46,6 @@ server.post('/api/doorEntry', (req, res) => {
     wss.clients.forEach((client) => {
         client.send('');
     });
-    res.sendStatus(200);
 });
 
 server.use((req, res) => res.sendFile(INDEX));
