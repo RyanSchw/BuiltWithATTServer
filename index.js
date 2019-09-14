@@ -2,7 +2,7 @@ const request = require('request')
 const express = require('express')
 const SocketServer = require('ws').Server
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 app.get('/', (req, res) => {
     res.send('PERdudes');
