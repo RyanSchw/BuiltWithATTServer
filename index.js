@@ -40,16 +40,18 @@ const path = require('path');
 const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, 'index.html');
 
-const server = express()
-    .use((req, res) => res.sendFile(INDEX))
-    .listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-app.post('/api/doorEntry', (req, res) => {
+const server = express();
+    
+server.post('/api/doorEntry', (req, res) => {
     wss.clients.forEach((client) => {
         client.send('');
     });
     res.sendStatus(200);
 });
+
+server.use((req, res) => res.sendFile(INDEX));
+server.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
 
 const wss = new SocketServer({ server });
 
