@@ -1,0 +1,32 @@
+<!-- <html>
+    <body>
+        <p id='server-time'></p>
+        <script>
+            console.log('Hello world')
+            var HOST = 'ws://firstnethackathon.herokuapp.com/'
+            var ws = new WebSocket(HOST);
+            console.log(ws);
+            var el = document.getElementById('server-time');
+            ws.onmessage = function (event) {
+                console.log('Event' + event.data);
+                el.innerHTML = 'Server time: ' + event.data;
+            };
+    </script>
+    </body>
+</html> -->
+
+<html>
+
+<body>
+    <p id='server-time'></p>
+    <script>
+        var HOST = location.origin.replace(/^http/, 'ws')
+        var ws = new WebSocket(HOST);
+        var el = document.getElementById('server-time');
+        ws.onmessage = function (event) {
+            el.innerHTML = 'Server time: ' + event.data;
+        };
+    </script>
+</body>
+
+</html>
