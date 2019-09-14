@@ -1,5 +1,6 @@
 const request = require('request')
 const express = require('express')
+const SocketServer = require('ws').Server
 const app = express()
 const port = 3000
 
@@ -15,7 +16,7 @@ app.use((req, res) => res.sendFile(INDEX))
 app.use(express.json());
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-const wss = new SocketServer({ app });
+const wss = new SocketServer({ server: app });
 
 wss.on('connection', (ws) => {
     console.log('Client connected');
